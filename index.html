@@ -2,68 +2,43 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Video con Audio Fullscreen</title>
+  <title>Apri in YouTube</title>
   <style>
     html, body {
+      height: 100%;
       margin: 0;
-      padding: 0;
-      height: 100%;
       background-color: black;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    #playerContainer {
-      width: 100%;
-      height: 100%;
-      display: none;
-    }
-    #player {
-      width: 100%;
-      height: 100%;
-    }
-    #playButton {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    button {
       font-size: 24px;
       padding: 20px 40px;
       cursor: pointer;
-      z-index: 9999;
     }
   </style>
 </head>
 <body>
-  <button id="playButton">▶ Avvia video con audio</button>
-  <div id="playerContainer">
-    <div id="player"></div>
-  </div>
+  <button id="openYouTube">▶ Apri in YouTube</button>
 
   <script>
-    let player;
+    document.getElementById('openYouTube').addEventListener('click', function () {
+      const videoId = '3aWs2malAoU';
+      const appUrl = 'youtube://' + videoId;
+      const webUrl = 'https://www.youtube.com/watch?v=' + videoId;
 
-    async function enterFullscreen(elem) {
-      if (elem.requestFullscreen) {
-        await elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { // Safari
-        await elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { // IE11
-        await elem.msRequestFullscreen();
-      }
-    }
+      // Tentativo di apertura app (solo mobile)
+      const now = Date.now();
+      window.location = appUrl;
 
-    document.getElementById('playButton').addEventListener('click', async function () {
-      this.style.display = 'none';
-      const container = document.getElementById('playerContainer');
-      container.style.display = 'block';
-
-      await enterFullscreen(container);
-
-      const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      document.body.appendChild(tag);
+      // Se dopo 1.5s l'app non si è aperta, fallback al browser
+      setTimeout(() => {
+        if (Date.now() - now < 2000) {
+          window.location = webUrl;
+        }
+      }, 1500);
     });
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        videoId: '3aWs2malAoU',
-        play
+  </script>
+</body>
+</html>
