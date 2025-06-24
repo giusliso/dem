@@ -9,7 +9,7 @@
       width: 100%;
       margin: 0;
       padding: 0;
-      background: url(bg.png);
+      background: url(bg.webp);
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -83,8 +83,8 @@
     }
     
     button {
-      font-size: 24px;
-      padding: 20px 40px;
+      font-size: 28px;
+      padding: 25px 50px;
       cursor: pointer;
       background: linear-gradient(135deg, #0a4b85, #0d5a9e);
       color: white;
@@ -106,6 +106,13 @@
     button:active {
       transform: translateY(0);
       box-shadow: 0 2px 8px rgba(10, 75, 133, 0.3);
+      opacity: 0.7;
+      transition: all 0.1s ease;
+    }
+    
+    button:focus {
+      outline: none;
+      box-shadow: 0 4px 15px rgba(10, 75, 133, 0.5), 0 0 0 3px rgba(10, 75, 133, 0.3);
     }
   </style>
 </head>
@@ -122,7 +129,7 @@
     document.getElementById('openYouTube').addEventListener('click', function () {
       const videoId = '3aWs2malAoU';
       const appUrl = 'youtube://' + videoId;
-      const webUrl = 'https://www.youtube.com/watch?v=' + videoId + '&cc_load_policy=1&autoplay=1&mute=0&fs=1';
+      const webUrl = 'https://www.youtube.com/watch?v=' + videoId + '&cc_load_policy=1&autoplay=1&mute=0&fs=1&hl=it&cc_lang_pref=it';
 
       // Tentativo di apertura app (solo mobile)
       const now = Date.now();
